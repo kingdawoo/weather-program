@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Weather Program</title>
+    <script src="script.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>      
+            
+</head>
+<body>
+
+  <!-- JS -->
+  <script defer>    
+     function getJSON() {
+      fetch('https://api.openweathermap.org/data/2.5/weather?q='+document.getElementById("cityname").value+'&units=metric&appid=7289814eccc9191f98b60b116d931cfd')
+      .then(res => res.json())
+      .then(json => {
+        createSimpleCard(json);
+      })
+    }
+
+      function getAdvancedJSON() {
+      fetch('https://api.openweathermap.org/data/2.5/weather?q='+document.getElementById("cityname").value+'&units=metric&appid=7289814eccc9191f98b60b116d931cfd')
+      .then(res => res.json())
+      .then(json => {
+        createAdvancedCard(json);
+      })
+     }
+
+      function createSimpleCard(json) {
+        var card = document.createElement("div");
+        var card_body = document.createElement("div");
+        var card_title = document.createElement("h5");
+        var card_list = document.createElement("ul");
+        var card_weather = document.createElement("li");
+        var card_temp = document.createElement("li");
+        var card_highest = document.createElement("li");
+        var card_lowest = document.createElement("li");
+
+        card.setAttribute('Class', 'card')
+        card.setAttribute('Style', 'width: 18rem');
+        
+        card_body.setAttribute('Class', 'card-body');
+        
+        card_title.setAttribute('Class', 'card-title');
+
+        card_list.setAttribute('Class', 'list-group list-group-flush');
+
+        card_weather.setAttribute('Class', 'list-group-item');
+        card_temp.setAttribute('Class', 'list-group-item');
+        card_highest.setAttribute('Class', 'list-group-item');
+        card_lowest.setAttribute('Class', 'list-group-item');
+
+        document.body.appendChild(card);
+        card.appendChild(card_body);
+        card_body.appendChild(card_title);
+
+        card.appendChild(card_list);
+        card_list.appendChild(card_weather);
+        card_list.appendChild(card_temp);
+        card_list.appendChild(card_highest);
+        card_list.appendChild(card_lowest);
+
+        card_body.innerText = json.name;
+        card_weather.innerText = "Weather: " + json.weather[0].description;
+        card_temp.innerText = "Temperature: " + json.main.temp + " C°";
+        card_highest.innerText = "Highest: " + json.main.temp_max + " C°";
+        card_lowest.innerText = "Lowest: " + json.main.temp_min + " C°";
+      
+
+      }
+
+      function createAdvancedCard(json) {
+        var card = document.createElement("div");
+        var card_body = document.createElement("div");
+        var card_title = document.createElement("h5");
+        var card_list = document.createElement("ul");
+        var card_weather = document.createElement("li");
+        var card_temp = document.createElement("li");
+        var card_highest = document.createElement("li");
+        var card_lowest = document.createElement("li");
+        var card_pressure = document.createElement("li");
+        var card_humidity = document.createElement("li");
+        var card_visibility = document.createElement("li");
+
+        card.setAttribute('Class', 'card')
+        card.setAttribute('Style', 'width: 18rem');
+        
+        card_body.setAttribute('Class', 'card-body');
+        
+        card_title.setAttribute('Class', 'card-title');
+
+        card_list.setAttribute('Class', 'list-group list-group-flush');
+
+        card_weather.setAttribute('Class', 'list-group-item');
+        card_temp.setAttribute('Class', 'list-group-item');
+        card_highest.setAttribute('Class', 'list-group-item');
+        card_lowest.setAttribute('Class', 'list-group-item');
+        card_pressure.setAttribute('Class', 'list-group-item');
+        card_humidity.setAttribute('Class', 'list-group-item');
+        card_visibility.setAttribute('Class', 'list-group-item');
+
+        document.body.appendChild(card);
+        card.appendChild(card_body);
+        card_body.appendChild(card_title);
+
+        card.appendChild(card_list);
+        card_list.appendChild(card_weather);
+        card_list.appendChild(card_temp);
+        card_list.appendChild(card_highest);
+        card_list.appendChild(card_lowest); 
+        card_list.appendChild(card_pressure);
+        card_list.appendChild(card_humidity);
+        card_list.appendChild(card_visibility);
+
+        card_body.innerText = json.name;
+        card_weather.innerText = "Weather: " + json.weather[0].description;
+        card_temp.innerText = "Temperature: " + json.main.temp + " C°";
+        card_highest.innerText = "Highest: " + json.main.temp_max + " C°";
+        card_lowest.innerText = "Lowest: " + json.main.temp_min + " C°";
+        card_pressure.innerText = "Pressure: " + json.main.pressure;
+        card_humidity.innerText = "Humidity: " + json.main.humidity;
+        card_visibility.innerText = "Visibility: " + json.visibility;
+      }
+  </script>
+    
+    <!-- HTML -->
+    <h1 class="text-center">The Weather Program</h1><hr><br><br>
+    
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="City name" aria-label="City name with two button addons" id="cityname">
+        <button class="btn btn-outline-secondary" type="button" onclick="getJSON()">Simple</button>
+        <button class="btn btn-outline-secondary" type="button" onclick="getAdvancedJSON()">Advanced</button>
+    </div>
+      
+      
+    <!-- CSS -->
+    <style>
+        .card {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+        margin-top: 30px;
+      }
+
+    </style>
+
+</body>
+</html>
